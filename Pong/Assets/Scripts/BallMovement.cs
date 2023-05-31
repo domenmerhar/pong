@@ -11,14 +11,14 @@ public class BallMovement : MonoBehaviour
     private void Awake()
     {
         rigidbody.velocity = Vector2.left * speed;
-        //if ((UnityEngine.Random.Range(0, 100) <= 50))
-        //{
-        //    rigidbody.velocity = Vector2.left * speed;
-        //}
-        //else
-        //{
-        //    rigidbody.velocity = Vector2.right * speed;      
-        //} 
+        if ((UnityEngine.Random.Range(0, 100) <= 50))
+        {
+            rigidbody.velocity = Vector2.left * speed;
+        }
+        else
+        {
+            rigidbody.velocity = Vector2.right * speed;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
