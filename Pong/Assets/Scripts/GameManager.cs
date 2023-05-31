@@ -11,15 +11,15 @@ public class GameManager : MonoBehaviour
     private int scoreLeft = 0;
     private int scoreRight = 0;
 
-   public void AddScoreLeftPlayer()
+   public void AddScoreLeftPlayer(int scoreToAdd)
    {
-        scoreLeft++;
+        scoreLeft += scoreToAdd;
         textBoxLeft.text = scoreLeft.ToString("D2");
    }
    
-   public void AddScoreRightPlayer() 
+   public void AddScoreRightPlayer(int scoreToAdd) 
    {
-        scoreRight++;
+        scoreRight += scoreToAdd;
         textBoxRight.text = scoreRight.ToString("D2");
    }
 }
