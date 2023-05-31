@@ -33,12 +33,12 @@ public class BallMovement : MonoBehaviour
         else if (collision.gameObject.CompareTag("ScoreTriggerLeft"))
         {
             ResetBallPosition();
-            gameManagerScript.AddScoreLeft();
+            gameManagerScript.AddScoreRightPlayer();
         }
-        else if (collision.gameObject.CompareTag("ScoreTriggerLeft"))
+        else if (collision.gameObject.CompareTag("ScoreTriggerRight"))
         {
             ResetBallPosition();
-            gameManagerScript.AddScoreRight();
+            gameManagerScript.AddScoreLeftPlayer();
         }
     }
 
