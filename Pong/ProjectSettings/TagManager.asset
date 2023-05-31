@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Racket
+  - Border
+  - ScoreTrigger
   layers:
   - Default
   - TransparentFX
