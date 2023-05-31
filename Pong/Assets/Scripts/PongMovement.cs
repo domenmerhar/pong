@@ -14,20 +14,15 @@ public class PongMovement : MonoBehaviour
         rigidBody = GetComponent<Rigidbody2D>();
     }
     
-    private void OnEnable()
-    {
-        rigidBody.velocity = Vector3.up * speed;
-    }
-    
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.W))
         {
-            rigidBody.velocity = Vector3.up * speed; 
+            rigidBody.velocity = Vector2.up * speed; 
         }
         else if(Input.GetKeyDown(KeyCode.S))
         {
-            rigidBody.velocity = Vector3.down * speed; 
+            rigidBody.velocity = Vector2.down * speed; 
         }
     }
 }

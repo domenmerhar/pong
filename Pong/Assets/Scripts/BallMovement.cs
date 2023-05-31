@@ -1,24 +1,39 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BallMovement : MonoBehaviour
 {
-    private new Rigidbody2D rigidbody;
+    [SerializeField] private new Rigidbody2D rigidbody;
     [SerializeField] private float speed;
 
-    private void Start()
+    private void Awake()
     {
-        rigidbody = GetComponent<Rigidbody2D>();
+        rigidbody.velocity = Vector2.left * speed;
+        //if ((UnityEngine.Random.Range(0, 100) <= 50))
+        //{
+        //    rigidbody.velocity = Vector2.left * speed;
+        //}
+        //else
+        //{
+        //    rigidbody.velocity = Vector2.right * speed;      
+        //} 
+    }
 
-        if ((Random.Range(0, 100) <= 50))
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Racket")) // Changes X and gets Y upon hittin racket
         {
-            rigidbody.velocity = Vector3.left * speed;
+            rigidbody.velocity = new Vector2(
+                    -rigidbody.velocity.x,
+                    collision.GetComponent<Rigidbody2D>().velocity.y);
         }
         else
         {
-            rigidbody.velocity = Vector3.right * speed;      
-        } 
+            rigidbody.velocity = new Vector2(
+                rigidbody.velocity.x,
+                -rigidbody.velocity.y); // Changes Y upon hiting wall 
+        }
     }
-    
 }
