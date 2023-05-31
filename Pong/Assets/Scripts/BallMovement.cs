@@ -9,17 +9,20 @@ public class BallMovement : MonoBehaviour
     [SerializeField] private float speed;
 
     private GameManager gameManagerScript;
+    private SoundManager soundManagerScript;
 
     private void Awake()
     {
         ResetBallPosition();
         gameManagerScript = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        soundManagerScript = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SoundManager>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Racket")) // Changes X and gets Y upon hittin racket
         {
+            soundManagerScript.PlaySFX(soundManagerScript.bounceSound);
             rigidbody.velocity = new Vector2(
                     -rigidbody.velocity.x,
                     collision.GetComponent<Rigidbody2D>().velocity.y);
