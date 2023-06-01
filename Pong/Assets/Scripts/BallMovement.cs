@@ -9,6 +9,7 @@ public class BallMovement : MonoBehaviour
     [SerializeField] private new Rigidbody2D rigidbody;
     [SerializeField] private float speed;
     [SerializeField] private TrailRenderer trailRenderer;
+    [SerializeField] private AIMovement aIMovementScript;
 
     private GameManager gameManagerScript;
     private SoundManager soundManagerScript;
@@ -33,8 +34,13 @@ public class BallMovement : MonoBehaviour
 
         purple = new Color32(128, 0, 255, 255);
         green = new Color32(128, 255, 0, 255);
+
     }
 
+    private void Start()
+    {
+        aIMovementScript.Teleport(this.transform.position.y);
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Racket")) // Changes X and gets Y upon hittin racket
@@ -59,6 +65,7 @@ public class BallMovement : MonoBehaviour
             gameManagerScript.AddScoreRightPlayer(scoreToAdd);
             trailRenderer.enabled = true;
             soundManagerScript.PlaySFX(soundManagerScript.scoreSound, soundManagerScript.scoreSoundVolume);
+            aIMovementScript.Teleport(this.transform.position.y);
         }
         else if (collision.gameObject.CompareTag("ScoreTriggerRight"))
         {
@@ -69,6 +76,7 @@ public class BallMovement : MonoBehaviour
             gameManagerScript.AddScoreLeftPlayer(scoreToAdd);
             trailRenderer.enabled = true;
             soundManagerScript.PlaySFX(soundManagerScript.scoreSound, soundManagerScript.scoreSoundVolume);
+            aIMovementScript.Teleport(this.transform.position.y);
         }
     }
 
