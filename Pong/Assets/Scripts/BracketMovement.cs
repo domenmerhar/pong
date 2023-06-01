@@ -10,12 +10,16 @@ public class BracketMovement : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private KeyCode keyInput;
 
-    private void Start()
+    private void Awake()
     {
         rigidBody = GetComponent<Rigidbody2D>();
+    }
+
+    private void OnEnable()
+    {
         rigidBody.velocity = Vector2.up * speed;
     }
-    
+
     private void Update()
     {
         if (Input.GetKeyDown(keyInput))

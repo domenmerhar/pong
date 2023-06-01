@@ -9,9 +9,16 @@ public class SoundManager : MonoBehaviour
     [Header("SFX")]
     [SerializeField] public AudioClip bounceSound;
     [SerializeField] public AudioClip pauseMenuSound;
-    
-    public void PlaySFX(AudioClip soundToPlay)
+    [SerializeField] public AudioClip scoreSound;
+
+    [Header("Volume")]
+    [SerializeField] public float bounceSoundVolume;
+    [SerializeField] public float pauseMenuSoundVolume;
+    [SerializeField] public float scoreSoundVolume;
+
+    public void PlaySFX(AudioClip soundToPlay, float volume)
     {
+        SFXSource.volume = volume;
         SFXSource.PlayOneShot(soundToPlay);
     }
 }

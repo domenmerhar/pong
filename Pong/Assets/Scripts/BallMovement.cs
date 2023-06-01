@@ -8,6 +8,7 @@ public class BallMovement : MonoBehaviour
 {
     [SerializeField] private new Rigidbody2D rigidbody;
     [SerializeField] private float speed;
+    [SerializeField] private TrailRenderer trailRenderer;
 
     private GameManager gameManagerScript;
     private SoundManager soundManagerScript;
@@ -38,7 +39,7 @@ public class BallMovement : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Racket")) // Changes X and gets Y upon hittin racket
         {
-            soundManagerScript.PlaySFX(soundManagerScript.bounceSound);
+            soundManagerScript.PlaySFX(soundManagerScript.bounceSound, soundManagerScript.bounceSoundVolume);
             rigidbody.velocity = new Vector2(
                     -rigidbody.velocity.x * 1.1f,
                     collision.GetComponent<Rigidbody2D>().velocity.y);
@@ -49,26 +50,36 @@ public class BallMovement : MonoBehaviour
                 rigidbody.velocity.x,
                 -rigidbody.velocity.y); // Changes Y upon hiting wall 
         }
-        if (collision.gameObject.CompareTag("ScoreTriggerLeft"))
+        else if (collision.gameObject.CompareTag("ScoreTriggerLeft"))
         {
+            trailRenderer.enabled = false;
             int scoreToAdd = isHeavyClass ? 5 : 1;
             GetClass();
             ResetBallPosition();
             gameManagerScript.AddScoreRightPlayer(scoreToAdd);
+            trailRenderer.enabled = true;
+            soundManagerScript.PlaySFX(soundManagerScript.scoreSound, soundManagerScript.scoreSoundVolume);
         }
         else if (collision.gameObject.CompareTag("ScoreTriggerRight"))
         {
+            trailRenderer.enabled = false;
             int scoreToAdd = isHeavyClass ? 5 : 1;
             GetClass();
             ResetBallPosition();
             gameManagerScript.AddScoreLeftPlayer(scoreToAdd);
+            trailRenderer.enabled = true;
+            soundManagerScript.PlaySFX(soundManagerScript.scoreSound, soundManagerScript.scoreSoundVolume);
         }
     }
 
     public void ResetBallPosition()
     {
-        transform.position = Vector3.zero;
+        transform.position = new Vector3(
+            0f,
+            UnityEngine.Random.Range(-4.6f, 4.6f),
+            0); //Teleports ball
         
+
         rigidbody.velocity = Vector2.left * speed;
         if ((UnityEngine.Random.Range(0, 100) <= 50))
         {
