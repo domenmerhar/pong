@@ -22,7 +22,7 @@ public class BracketMovement : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(keyInput))
+        if (Input.GetKeyDown(keyInput) && !PauseMenu.isPaused)
         {
             rigidBody.velocity = Vector2.up * speed;
             speed *= -1;
