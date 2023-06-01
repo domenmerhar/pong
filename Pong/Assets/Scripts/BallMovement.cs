@@ -30,8 +30,8 @@ public class BallMovement : MonoBehaviour
         soundManagerScript = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SoundManager>();
         spriteRenderer = GetComponent<SpriteRenderer>();
 
-        purple = new Color32(128, 0, 255, 1);
-        green = new Color32(128, 255, 0, 1);
+        purple = new Color32(128, 0, 255, 255);
+        green = new Color32(128, 255, 0, 255);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -40,7 +40,7 @@ public class BallMovement : MonoBehaviour
         {
             soundManagerScript.PlaySFX(soundManagerScript.bounceSound);
             rigidbody.velocity = new Vector2(
-                    -rigidbody.velocity.x,
+                    -rigidbody.velocity.x * 1.1f,
                     collision.GetComponent<Rigidbody2D>().velocity.y);
         }
         else if (collision.gameObject.CompareTag("Border"))
@@ -49,7 +49,7 @@ public class BallMovement : MonoBehaviour
                 rigidbody.velocity.x,
                 -rigidbody.velocity.y); // Changes Y upon hiting wall 
         }
-        else if (collision.gameObject.CompareTag("ScoreTriggerLeft"))
+        if (collision.gameObject.CompareTag("ScoreTriggerLeft"))
         {
             int scoreToAdd = isHeavyClass ? 5 : 1;
             GetClass();

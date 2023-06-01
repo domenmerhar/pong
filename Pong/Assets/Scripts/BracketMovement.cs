@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class PongMovement : MonoBehaviour
+public class BracketMovement : MonoBehaviour
 {
     private Rigidbody2D rigidBody;
 
