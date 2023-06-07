@@ -55,6 +55,7 @@ public class BallMovement : MonoBehaviour
             rigidbody.velocity = new Vector2(
                     -rigidbody.velocity.x * 1.1f,
                     collision.GetComponent<Rigidbody2D>().velocity.y);
+            trailRenderer.endColor = collision.gameObject.GetComponent<SpriteRenderer>().color;
         }
         else if (collision.gameObject.CompareTag("Border"))
         {
