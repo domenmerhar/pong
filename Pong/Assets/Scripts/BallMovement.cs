@@ -9,7 +9,8 @@ public class BallMovement : MonoBehaviour
     [SerializeField] private new Rigidbody2D rigidbody;
     [SerializeField] private float speed;
     [SerializeField] private TrailRenderer trailRenderer;
-    [SerializeField] private AIMovement aIMovementScript;
+    private AIMovement aIMovementScript;
+    [SerializeField] private BallSpawner ballSpawnerScript;
 
     private GameManager gameManagerScript;
     private SoundManager soundManagerScript;
@@ -31,16 +32,21 @@ public class BallMovement : MonoBehaviour
         gameManagerScript = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         soundManagerScript = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SoundManager>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        aIMovementScript = GameObject.Find("RacketAI").GetComponent<AIMovement>();
+        ballSpawnerScript = GameObject.FindGameObjectWithTag("GameManager").GetComponent<BallSpawner>();
 
         purple = new Color32(128, 0, 255, 255);
         green = new Color32(128, 255, 0, 255);
 
+        GetClass();
+        ChooseDirection();
     }
 
     private void Start()
     {
         aIMovementScript.Teleport(this.transform.position.y);
     }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Racket")) // Changes X and gets Y upon hittin racket
@@ -58,25 +64,19 @@ public class BallMovement : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("ScoreTriggerLeft"))
         {
-            trailRenderer.enabled = false;
             int scoreToAdd = isHeavyClass ? 5 : 1;
-            GetClass();
-            ResetBallPosition();
             gameManagerScript.AddScoreRightPlayer(scoreToAdd);
-            trailRenderer.enabled = true;
             soundManagerScript.PlaySFX(soundManagerScript.scoreSound, soundManagerScript.scoreSoundVolume);
-            aIMovementScript.Teleport(this.transform.position.y);
+            ballSpawnerScript.SpawnBall();
+            Destroy(gameObject);
         }
         else if (collision.gameObject.CompareTag("ScoreTriggerRight"))
         {
-            trailRenderer.enabled = false;
             int scoreToAdd = isHeavyClass ? 5 : 1;
-            GetClass();
-            ResetBallPosition();
             gameManagerScript.AddScoreLeftPlayer(scoreToAdd);
-            trailRenderer.enabled = true;
             soundManagerScript.PlaySFX(soundManagerScript.scoreSound, soundManagerScript.scoreSoundVolume);
-            aIMovementScript.Teleport(this.transform.position.y);
+            ballSpawnerScript.SpawnBall();
+            Destroy(gameObject);
         }
     }
 
@@ -88,6 +88,19 @@ public class BallMovement : MonoBehaviour
             0); //Teleports ball
         
 
+        rigidbody.velocity = Vector2.left * speed;
+        if ((UnityEngine.Random.Range(0, 100) <= 50))
+        {
+            rigidbody.velocity = Vector2.left * currentSpeed;
+        }
+        else
+        {
+            rigidbody.velocity = Vector2.left * currentSpeed;
+        }
+    }
+
+    private void ChooseDirection()
+    {
         rigidbody.velocity = Vector2.left * speed;
         if ((UnityEngine.Random.Range(0, 100) <= 50))
         {

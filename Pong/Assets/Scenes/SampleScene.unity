@@ -1085,9 +1085,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pauseKey: 27
   pauseMenu: {fileID: 1875876263}
-  postProcessProfile: {fileID: 0}
+  postProcessProfile: {fileID: 11400000, guid: f3f3840b8c604f74b919ea4bba8bde66, type: 2}
+  vignette: {fileID: 0}
   defaultVignette: 0.23
-  pauseVignette: 0.35
+  pauseVignette: 0.5
 --- !u!1 &569477535
 GameObject:
   m_ObjectHideFlags: 0

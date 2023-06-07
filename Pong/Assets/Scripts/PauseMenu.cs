@@ -8,7 +8,7 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private PostProcessProfile postProcessProfile;
 
-    private Vignette vignette;
+    [SerializeField] private Vignette vignette;
 
     [Header("Values")]
     [SerializeField] private float defaultVignette;
@@ -40,6 +40,7 @@ public class PauseMenu : MonoBehaviour
     {
         pauseMenu.SetActive(true);
         Time.timeScale = 0;
+        vignette.intensity.value = pauseVignette;
         isPaused = true;
     }
 
@@ -47,6 +48,7 @@ public class PauseMenu : MonoBehaviour
     {
         pauseMenu.SetActive(false);
         Time.timeScale = 1;
+        vignette.intensity.value = defaultVignette;
         isPaused = false;
     }
 }
