@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
 
@@ -19,6 +20,8 @@ public class PauseMenu : MonoBehaviour
     private void Start()
     {
         isPaused = false;
+        postProcessProfile.TryGetSettings(out vignette);
+        vignette.intensity.value = defaultVignette;
     }
 
     private void Update()
